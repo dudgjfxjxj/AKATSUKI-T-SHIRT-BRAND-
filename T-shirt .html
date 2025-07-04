@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>akatsuki T-shirt Store</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #121212;
+      color: #fff;
+      margin: 0;
+    }
+    header, footer {
+      background-color: #2e7d32;
+      text-align: center;
+      padding: 1rem;
+    }
+    header h1 {
+      margin: 0;
+      color: #fff;
+    }
+    main {
+      padding: 1rem;
+      max-width: 1000px;
+      margin: auto;
+    }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+    .product {
+      background-color: #1e1e1e;
+      border-radius: 10px;
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    }
+    .product img {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    button {
+      background-color: #43a047;
+      color: white;
+      border: none;
+      padding: 0.7rem 1.2rem;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 1rem;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #2e7d32;
+    }
+    #message {
+      text-align: center;
+      background-color: #e6ffe6;
+      color: #155724;
+      padding: 1rem;
+      margin: 1rem auto;
+      border-radius: 5px;
+      max-width: 600px;
+      display: none;
+    }
+    #cart {
+      margin-top: 2rem;
+      background-color: #1e1e1e;
+      padding: 1rem;
+      border-radius: 10px;
+    }
+    #cart h2 {
+      text-align: center;
+      color: #81c784;
+    }
+    #cart ul {
+      list-style: none;
+      padding: 0;
+    }
+    #cart li {
+      padding: 0.5rem;
+      border-bottom: 1px solid #555;
+    }
+    #checkout {
+      display: block;
+      margin: 1rem auto;
+      background-color: #43a047;
+      padding: 0.7rem 1.5rem;
+      border-radius: 5px;
+      text-align: center;
+      color: white;
+      text-decoration: none;
+      width: fit-content;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>akatsuki T-shirt Store</h1>
+    <p>Contact us on WhatsApp: 7668867630</p>
+  </header>
+
+  <div id="message">Product added to cart!</div>
+
+  <main>
+    <h2 style="text-align:center; color:#81c784;">Our Products</h2>
+    <p style="text-align:center;">Add your own products and images below!</p>
+    <div class="products">
+      <!-- YOU CAN DUPLICATE AND EDIT THESE PRODUCT BLOCKS AS NEEDED -->
+      <div class="product">
+        <img src="https://via.placeholder.com/300x300.png?text=Your+Product+Image" alt="Product Placeholder">
+        <p>Your Product Name</p>
+        <button onclick="addToCart('Your Product Name')">Add to Cart</button>
+      </div>
+      <div class="product">
+        <img src="https://via.placeholder.com/300x300.png?text=Your+Product+Image" alt="Product Placeholder">
+        <p>Another Product</p>
+        <button onclick="addToCart('Another Product')">Add to Cart</button>
+      </div>
+      <!-- Add more products here by copying the <div class="product">...</div> block -->
+    </div>
+
+    <div id="cart">
+      <h2>Cart</h2>
+      <ul id="cartItems"></ul>
+      <a id="checkout" href="#">Checkout on WhatsApp</a>
+    </div>
+  </main>
+
+  <footer>
+    &copy; 2025 akatsuki T-shirt Store. All rights reserved.
+  </footer>
+
+  <script>
+    let cart = [];
+
+    function addToCart(product) {
+      cart.push(product);
+      updateCart();
+      showMessage();
+    }
+
+    function showMessage() {
+      const msg = document.getElementById('message');
+      msg.style.display = 'block';
+      setTimeout(() => {
+        msg.style.display = 'none';
+      }, 10000);  // 10 seconds
+    }
+
+    function updateCart() {
+      const list = document.getElementById('cartItems');
+      list.innerHTML = '';
+      cart.forEach((item, index) => {
+        const li = document.createElement('li');
+        li.textContent = `${index + 1}. ${item}`;
+        list.appendChild(li);
+      });
+
+      const whatsappMessage = encodeURIComponent(
+        `Hello, I'd like to order these T-Shirts:\n\n${cart.map((item, i) => `${i + 1}. ${item}`).join('\n')}\n\nThank you!`
+      );
+      document.getElementById('checkout').href = `https://wa.me/7668867630?text=${whatsappMessage}`;
+    }
+  </script>
+</body>
+</html>
